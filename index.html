@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>System Hacked</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden; /* Disable scrolling */
+      font-family: monospace;
+      background-color: black;
+    }
+    a {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #ff0000;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 18px;
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 1000; /* Ensure the button is above everything */
+    }
+    a:hover {
+      background-color: darkred;
+    }
+    .black-screen {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      color: green;
+      font-family: monospace;
+      font-size: 18px;
+    }
+    .moving-text {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    .moving-text span {
+      position: absolute;
+      top: 0;
+      font-size: 18px;
+      color: lime;
+      animation: moveDown 5s linear infinite, glitchEffect 1s linear infinite;
+      text-shadow: 0 0 5px green, 0 0 10px green, 0 0 20px lime;
+    }
+    .black-screen p {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: red;
+      font-size: 32px;
+      text-shadow: 0 0 5px red, 0 0 10px red, 0 0 20px darkred;
+      animation: blinkText 1s infinite;
+      z-index: 100; /* Ensure the message stays above the text */
+    }
+
+    @keyframes moveDown {
+      0% {
+        top: -10%;
+      }
+      100% {
+        top: 110%;
+      }
+    }
+
+    @keyframes glitchEffect {
+      0% {
+        opacity: 1;
+        transform: translateX(0);
+        filter: blur(0px);
+      }
+      33% {
+        opacity: 0.8;
+        transform: translateX(5px);
+        filter: blur(1px);
+      }
+      66% {
+        opacity: 1;
+        transform: translateX(-5px);
+        filter: blur(2px);
+      }
+      100% {
+        opacity: 0.9;
+        transform: translateX(0);
+        filter: blur(0px);
+      }
+    }
+
+    @keyframes blinkText {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="#" id="activate">Click Here</a>
+
+  <div class="black-screen" id="blackScreen">
+    <div class="moving-text" id="movingText"></div>
+    <p>Your device has been hacked</p>
+  </div>
+
+  <script>
+    const activateButton = document.getElementById("activate");
+    const blackScreen = document.getElementById("blackScreen");
+    const movingText = document.getElementById("movingText");
+
+    // Generate random characters
+    function getRandomCharacter() {
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
+      return chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+
+    // Create moving text effect
+    function generateMovingText() {
+      for (let i = 0; i < 200; i++) {
+        const span = document.createElement("span");
+        span.textContent = getRandomCharacter();
+        span.style.left = Math.random() * 100 + "vw"; // Random horizontal position
+        span.style.animationDuration = Math.random() * 4 + 3 + "s"; // Random animation speed
+        span.style.animationDelay = Math.random() * 5 + "s"; // Random animation delay
+        span.style.fontSize = Math.random() * 20 + 10 + "px"; // Random font size
+        movingText.appendChild(span);
+      }
+    }
+
+    activateButton.addEventListener("click", function (event) {
+      event.preventDefault(); // Prevent the default link action
+      blackScreen.style.display = "block";
+      generateMovingText(); // Start generating the moving text
+    });
+  </script>
+</body>
+</html>
